@@ -1,8 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { AuthService } from '../core/auth/auth.service';
 import { TranslatePipe } from '../core/i18n/i18n.service';
+import { Brand } from '../shared/brand';
 import { LanguageSwitcher } from '../shared/language-switcher';
 import { SiteFooter } from './site-footer';
 
@@ -15,18 +17,14 @@ import { SiteFooter } from './site-footer';
     TranslatePipe,
     LanguageSwitcher,
     SiteFooter,
+    Brand,
   ],
   template: `
     <a class="skip-link btn btn-primary" href="#main">{{ 'a11y.skip' | t }}</a>
-    <header class="border-bottom bg-white sticky-top">
-      <nav class="navbar navbar-expand-lg py-2" [attr.aria-label]="'nav.main' | t">
+    <header class="site-header" [class.on-navy]="dark()">
+      <nav class="navbar navbar-expand-lg py-3" [attr.aria-label]="'nav.main' | t">
         <div class="container">
-          <a
-            class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2"
-            routerLink="/"
-          >
-            <i class="bi bi-box-seam-fill" aria-hidden="true"></i> Velox
-          </a>
+          <vx-brand />
           <button
             class="navbar-toggler"
             type="button"
@@ -38,7 +36,7 @@ import { SiteFooter } from './site-footer';
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" [class.show]="open()" id="mainNav">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav ms-lg-4 me-auto gap-lg-2">
               <li class="nav-item">
                 <a class="nav-link" routerLink="/" fragment="calculator">{{ 'nav.rates' | t }}</a>
               </li>
@@ -59,15 +57,26 @@ import { SiteFooter } from './site-footer';
               </li>
             </ul>
             <div class="d-flex flex-wrap align-items-center gap-2 py-2 py-lg-0">
-              <vx-language-switcher />
+              <vx-language-switcher [dark]="dark()" />
               @if (auth.user(); as user) {
-                <a class="btn btn-primary" [routerLink]="user.is_staff ? '/admin' : '/app'">
+                <a
+                  class="btn"
+                  [class.btn-on-navy]="dark()"
+                  [class.btn-accent]="!dark()"
+                  [routerLink]="user.is_staff ? '/admin' : '/app'"
+                >
                   <i class="bi bi-person-circle me-1" aria-hidden="true"></i
                   >{{ 'nav.my_account' | t }}
                 </a>
               } @else {
-                <a class="btn btn-outline-primary" routerLink="/login">{{ 'nav.login' | t }}</a>
-                <a class="btn btn-accent" routerLink="/register">{{ 'nav.signup' | t }}</a>
+                <a class="nav-link px-2 fw-medium" routerLink="/login">{{ 'nav.login' | t }}</a>
+                <a
+                  class="btn"
+                  [class.btn-on-navy]="dark()"
+                  [class.btn-accent]="!dark()"
+                  routerLink="/register"
+                  >{{ 'nav.signup' | t }}</a
+                >
               }
             </div>
           </div>
@@ -83,10 +92,24 @@ import { SiteFooter } from './site-footer';
 export class PublicShell {
   protected readonly auth = inject(AuthService);
   protected readonly open = signal(false);
+  private readonly router = inject(Router);
+  /** The homepage hero is navy, so the header joins it. */
+  protected readonly dark = toSignal(
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd),
+      map(() => this.isHome()),
+    ),
+    { initialValue: this.isHome() },
+  );
 
   constructor() {
-    inject(Router)
-      .events.pipe(filter((e) => e instanceof NavigationEnd))
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe(() => this.open.set(false));
+  }
+
+  private isHome(): boolean {
+    const path = this.router.url.split(/[?#]/)[0];
+    return path === '/' || path === '';
   }
 }

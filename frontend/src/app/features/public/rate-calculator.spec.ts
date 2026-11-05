@@ -5,11 +5,12 @@ import { provideRouter } from '@angular/router';
 import { API } from '../../core/api';
 import { I18n } from '../../core/i18n/i18n.service';
 import { POSTAL_PATTERNS, RateCalculator } from './rate-calculator';
+import { RateResults } from './rate-results';
 
 describe('RateCalculator', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RateCalculator],
+      imports: [RateCalculator, RateResults],
       providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
     });
     TestBed.inject(I18n).set('en');
@@ -34,7 +35,12 @@ describe('RateCalculator', () => {
     expect(el.textContent).toContain('This field is required.');
   });
 
-  it('requests quotes and labels simulated results', async () => {
+  it('requests quotes and the results panel labels and tags them', async () => {
+    const results = TestBed.createComponent(RateResults);
+    await results.whenStable();
+    expect((results.nativeElement as HTMLElement).textContent).toContain(
+      'Your rates will appear here',
+    );
     const fixture = TestBed.createComponent(RateCalculator);
     await fixture.whenStable();
     const el = fixture.nativeElement as HTMLElement;
@@ -70,10 +76,17 @@ describe('RateCalculator', () => {
       simulated: true,
       rates: [rate('slow', 1000, 7), rate('fast', 3000, 1)],
     });
-    await fixture.whenStable();
-    expect(el.textContent).toContain('Simulated data.');
-    expect(el.textContent).toContain('$10.00');
-    expect(el.textContent).toContain('Cheapest');
-    expect(el.textContent).toContain('Fastest');
+    await results.whenStable();
+    const out = results.nativeElement as HTMLElement;
+    expect(out.textContent).toContain('Simulated rates');
+    expect(out.textContent).toContain('$10.00');
+    expect(out.textContent).toContain('Cheapest');
+    expect(out.textContent).toContain('Fastest');
+    // Default sort is cheapest first; switching to fastest reorders the rows.
+    const firstService = () => out.querySelector('li.rate-row .fw-semibold')?.textContent?.trim();
+    expect(firstService()).toBe('slow');
+    out.querySelectorAll<HTMLButtonElement>('.segmented button')[1].click();
+    await results.whenStable();
+    expect(firstService()).toBe('fast');
   });
 });

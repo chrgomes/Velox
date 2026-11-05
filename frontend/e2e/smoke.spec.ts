@@ -93,8 +93,8 @@ test('rate calculator shows labelled simulated rates @mobile', async ({ page }) 
   await page.fill('[formcontrolname=to_postal]', '10001');
   await page.selectOption('[formcontrolname=to_country]', 'US');
   await page.getByRole('button', { name: 'Compare rates' }).click();
-  await expect(page.getByText('Simulated data.')).toBeVisible();
-  await expect(page.locator('li.card')).not.toHaveCount(0);
+  await expect(page.getByText('Simulated rates')).toBeVisible();
+  await expect(page.locator('li.rate-row')).not.toHaveCount(0);
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth > window.innerWidth,
   );

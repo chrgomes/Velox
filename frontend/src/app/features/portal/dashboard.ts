@@ -37,8 +37,12 @@ interface SetupStep {
   selector: 'vx-dashboard',
   imports: [RouterLink, TranslatePipe, EmptyState],
   template: `
-    <h1 class="h3 mb-1">{{ 'dash.hello' | t: { name: auth.user()?.first_name ?? '' } }}</h1>
-    <p class="text-muted-strong">{{ (welcome() ? 'dash.welcome' : 'dash.lead') | t }}</p>
+    <div class="d-flex flex-wrap align-items-end gap-2 mb-4">
+      <div>
+        <h1 class="h2 mb-1">{{ 'dash.hello' | t: { name: auth.user()?.first_name ?? '' } }}</h1>
+        <p class="text-muted-strong mb-0">{{ (welcome() ? 'dash.welcome' : 'dash.lead') | t }}</p>
+      </div>
+    </div>
 
     @if (data(); as d) {
       @if (!d.setup.email_verified) {
@@ -49,7 +53,7 @@ interface SetupStep {
           }}</span>
           <button
             type="button"
-            class="btn btn-sm btn-outline-dark"
+            class="btn btn-sm btn-outline-secondary bg-white"
             (click)="resend()"
             [disabled]="resent()"
           >
@@ -60,69 +64,73 @@ interface SetupStep {
 
       <div class="row g-3 mb-4">
         @for (s of stats(); track s.label) {
-          <div class="col-6 col-md-3">
-            <div class="card border-0 shadow-card h-100">
-              <div class="card-body">
-                <div class="small text-muted-strong">{{ s.label | t }}</div>
-                <div class="fs-3 fw-bold tabular">{{ s.value }}</div>
-              </div>
+          <div class="col-6 col-xl-3">
+            <div class="kpi">
+              <p class="small text-muted-strong mb-1 d-flex align-items-center gap-2">
+                <span class="dot" [style.background]="s.dot" aria-hidden="true"></span
+                >{{ s.label | t }}
+              </p>
+              <p class="value mb-0">{{ s.value }}</p>
             </div>
           </div>
         }
       </div>
 
       <div class="row g-4">
-        <div class="col-12 col-xl-7">
-          <div class="card border-0 shadow-card h-100">
-            <div class="card-body">
-              <h2 class="h5">{{ 'dash.shipments_title' | t }}</h2>
-              <vx-empty-state
-                icon="truck"
-                [title]="'dash.shipping_soon_title' | t"
-                [text]="'dash.shipping_soon_body' | t"
-              >
-                <a class="btn btn-accent" routerLink="/" fragment="calculator">{{
-                  'dash.compare_rates' | t
-                }}</a>
-              </vx-empty-state>
+        <div class="col-12 col-xl-8">
+          <section class="panel h-100" aria-labelledby="recent-heading">
+            <div class="d-flex align-items-center px-4 py-3 border-bottom">
+              <h2 id="recent-heading" class="h5 mb-0">{{ 'dash.shipments_title' | t }}</h2>
             </div>
-          </div>
+            <vx-empty-state
+              icon="truck"
+              [title]="'dash.shipping_soon_title' | t"
+              [text]="'dash.shipping_soon_body' | t"
+            >
+              <a class="btn btn-accent" routerLink="/" fragment="calculator">{{
+                'dash.compare_rates' | t
+              }}</a>
+            </vx-empty-state>
+          </section>
         </div>
-        <div class="col-12 col-xl-5">
-          <div class="card border-0 shadow-card h-100">
-            <div class="card-body">
-              <h2 class="h5">{{ 'dash.setup_title' | t }}</h2>
-              <ul class="list-unstyled mb-0">
-                @for (step of setup(); track step.label) {
-                  <li class="d-flex align-items-center gap-2 py-2 border-bottom">
-                    <i
-                      class="bi fs-5"
-                      [class]="
-                        step.done
-                          ? 'bi-check-circle-fill text-success'
-                          : 'bi-circle text-muted-strong'
-                      "
-                      aria-hidden="true"
-                    ></i>
-                    <span class="flex-grow-1" [class.text-decoration-line-through]="step.done">{{
-                      step.label | t
-                    }}</span>
-                    <span class="visually-hidden">{{
-                      (step.done ? 'common.done' : 'common.todo') | t
-                    }}</span>
-                    @if (!step.done && step.link) {
-                      <a
-                        class="btn btn-sm btn-outline-primary"
-                        [routerLink]="step.link"
-                        [queryParams]="step.query"
-                        >{{ 'common.start' | t }}</a
-                      >
-                    }
-                  </li>
-                }
-              </ul>
-            </div>
-          </div>
+        <div class="col-12 col-xl-4 d-grid gap-4 align-content-start">
+          <section class="panel p-4" aria-labelledby="setup-heading">
+            <h2 id="setup-heading" class="h5 mb-3">{{ 'dash.setup_title' | t }}</h2>
+            <ul class="list-unstyled mb-0">
+              @for (step of setup(); track step.label) {
+                <li class="d-flex align-items-center gap-2 py-2 border-bottom">
+                  <i
+                    class="bi fs-5"
+                    [class]="
+                      step.done ? 'bi-check-circle-fill text-success' : 'bi-circle text-subtle'
+                    "
+                    aria-hidden="true"
+                  ></i>
+                  <span class="flex-grow-1" [class.text-muted-strong]="step.done">{{
+                    step.label | t
+                  }}</span>
+                  <span class="visually-hidden">{{
+                    (step.done ? 'common.done' : 'common.todo') | t
+                  }}</span>
+                  @if (!step.done && step.link) {
+                    <a
+                      class="btn btn-sm btn-outline-secondary"
+                      [routerLink]="step.link"
+                      [queryParams]="step.query"
+                      >{{ 'common.start' | t }}</a
+                    >
+                  }
+                </li>
+              }
+            </ul>
+          </section>
+          <section class="navy-band p-4" aria-labelledby="quick-heading">
+            <h2 id="quick-heading" class="h5 mb-1">{{ 'dash.quick_title' | t }}</h2>
+            <p class="muted small mb-3">{{ 'dash.quick_body' | t }}</p>
+            <a class="btn btn-on-navy w-100" routerLink="/" fragment="calculator">{{
+              'dash.compare_rates' | t
+            }}</a>
+          </section>
         </div>
       </div>
     } @else {
@@ -139,14 +147,14 @@ export class DashboardPage implements OnInit {
   protected readonly data = signal<Dashboard | null>(null);
   protected readonly resent = signal(false);
 
-  protected readonly stats = computed<{ label: TKey; value: number }[]>(() => {
+  protected readonly stats = computed<{ label: TKey; value: number; dot: string }[]>(() => {
     const s = this.data()?.shipments;
     if (!s) return [];
     return [
-      { label: 'dash.stat_total', value: s.total },
-      { label: 'dash.stat_active', value: s.active },
-      { label: 'dash.stat_delivered', value: s.delivered },
-      { label: 'dash.stat_drafts', value: s.drafts },
+      { label: 'dash.stat_total', value: s.total, dot: '#64748B' },
+      { label: 'dash.stat_active', value: s.active, dot: '#1D4ED8' },
+      { label: 'dash.stat_delivered', value: s.delivered, dot: '#047857' },
+      { label: 'dash.stat_drafts', value: s.drafts, dot: '#B45309' },
     ];
   });
 

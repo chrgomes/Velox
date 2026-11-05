@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../core/auth/auth.service';
 import { TranslatePipe } from '../core/i18n/i18n.service';
 import { TKey } from '../core/i18n/en';
+import { Brand } from '../shared/brand';
 import { LanguageSwitcher } from '../shared/language-switcher';
 
 interface NavItem {
@@ -49,21 +50,20 @@ const ITEMS: NavItem[] = [
 
 @Component({
   selector: 'vx-admin-shell',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe, LanguageSwitcher],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe, LanguageSwitcher, Brand],
   template: `
     <a class="skip-link btn btn-primary" href="#main">{{ 'a11y.skip' | t }}</a>
-    <header class="bg-dark text-white sticky-top">
+    <header class="bg-navy sticky-top">
       <div class="container-fluid px-3 px-lg-4 py-2 d-flex flex-wrap align-items-center gap-3">
-        <a class="fw-bold text-white text-decoration-none" routerLink="/admin"
-          ><i class="bi bi-box-seam-fill me-2" aria-hidden="true"></i>Velox
-          <span class="badge bg-accent-vx ms-1">{{ 'admin.badge' | t }}</span></a
+        <span class="on-navy d-inline-flex align-items-center gap-2"
+          ><vx-brand /><span class="badge bg-accent-vx">{{ 'admin.badge' | t }}</span></span
         >
         <nav class="d-flex flex-wrap gap-1 ms-lg-3" [attr.aria-label]="'nav.admin' | t">
           @for (item of items(); track item.path) {
             <a
-              class="btn btn-sm btn-dark"
+              class="btn btn-sm btn-outline-on-navy border-0"
               [routerLink]="item.path"
-              routerLinkActive="active border-light"
+              routerLinkActive="active"
               [routerLinkActiveOptions]="{ exact: !!item.exact }"
             >
               <i class="bi me-1" [class]="'bi-' + item.icon" aria-hidden="true"></i

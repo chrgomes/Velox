@@ -1,19 +1,25 @@
-// Design tokens (docs/06-design-system.md §2). Brand values live here only.
-$vx-primary: #1e40af;
-$vx-primary-dark: #1e3a8a;
-$vx-primary-subtle: #eff4ff;
-$vx-accent: #f59e0b;
-$vx-ink: #111827;
-$vx-muted: #4b5563;
-$vx-border: #d1d5db;
-$vx-surface: #f9fafb;
+// Design tokens (docs/06-design-system.md §2, revised 2026-11-05 from the approved mockups).
+$vx-navy: #0b1b3a; // hero, side menu, dark bands
+$vx-navy-2: #12264d; // raised surfaces on navy
+$vx-navy-line: #2b3d63; // borders on navy
+$vx-on-navy: #c3cdde; // body text on navy (8:1)
+$vx-primary: #2d5bff; // single accent: links, primary buttons (white text 5.2:1)
+$vx-primary-dark: #1e40c8;
+$vx-primary-subtle: #eef2ff;
+$vx-ink: #0b1324;
+$vx-ink-2: #334155;
+$vx-muted: #475569; // secondary text (7.6:1)
+$vx-subtle: #64748b; // labels, captions (4.8:1)
+$vx-border: #e2e8f0;
+$vx-border-strong: #cbd5e1;
+$vx-surface: #f5f7fa;
 $vx-success: #047857;
 $vx-warning: #b45309;
 $vx-danger: #b91c1c;
-$vx-info: #0369a1;
+$vx-info: #1d4ed8;
 
-$vx-radius: 0.5rem;
-$vx-radius-card: 0.75rem;
+$vx-radius: 0.625rem;
+$vx-radius-card: 0.875rem;
 $vx-font:
   'Inter Variable',
   system-ui,
@@ -21,3 +27,4 @@ $vx-font:
   'Segoe UI',
   Roboto,
   sans-serif;
+$vx-font-display: 'Manrope Variable', 'Inter Variable', system-ui, sans-serif;
