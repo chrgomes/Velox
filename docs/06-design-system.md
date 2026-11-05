@@ -2,6 +2,11 @@
 
 Working brand name: **Velox** (replaceable; all brand strings and colours live in tokens and i18n files).
 
+> **Revised 2026-11-05** from the approved mockups (design canvas "Velox UI redesign mockups"):
+> navy hero and side menu, one cobalt accent, Manrope display type over Inter body text, a full-width
+> quote bar, and rate rows instead of cards. Tokens below are current; `frontend/src/styles/_tokens.scss`
+> is the source of truth. Both fonts are self-hosted (`@fontsource`), so no requests go to Google.
+
 ## 1. Principles
 1. **Price clarity first.** Totals, taxes and fees are visible before payment; no surprise costs.
 2. **Fast path for repeat shippers.** Saved addresses, duplicate shipment, remembered parcel sizes.
@@ -12,20 +17,21 @@ Working brand name: **Velox** (replaceable; all brand strings and colours live i
 ## 2. Tokens (`frontend/src/styles/_tokens.scss`, mapped onto Bootstrap 5 variables)
 
 ### Colour
-| Token | Hex | Use | Contrast on white |
+| Token | Hex | Use | Contrast |
 |---|---|---|---|
-| `primary` | `#1E40AF` | links, primary buttons (white text), focus | 8.7:1 |
-| `primary-dark` | `#1E3A8A` | hover/active | 10.4:1 |
-| `primary-subtle` | `#EFF4FF` | selected rows, info panels | n/a (background) |
-| `accent` | `#F59E0B` | main CTA ("Get rates"), **dark text only** | n/a (used with `#111827` text, 8.3:1) |
-| `ink` | `#111827` | body text | 17.7:1 |
-| `muted` | `#4B5563` | secondary text | 7.6:1 |
-| `border` | `#D1D5DB` | dividers, inputs | n/a |
-| `surface` | `#F9FAFB` | page background sections | n/a |
-| `success` | `#047857` | delivered, paid | 5.5:1 |
-| `warning` | `#B45309` | attention, test mode | 5.0:1 |
-| `danger` | `#B91C1C` | exceptions, errors | 6.5:1 |
-| `info` | `#0369A1` | in transit | 5.9:1 |
+| `navy` | `#0B1B3A` | hero, portal side menu, dark bands | white text 16:1 |
+| `on-navy` | `#C3CDDE` | body text on navy | 8:1 on navy |
+| `primary` | `#2D5BFF` | the single accent: primary buttons, links, active states | white text 5.2:1 |
+| `primary-dark` | `#1E40C8` | hover/active | white text 7.4:1 |
+| `ink` | `#0B1324` | body text | 18:1 |
+| `muted` | `#475569` | secondary text | 7.6:1 |
+| `subtle` | `#64748B` | labels, captions | 4.8:1 |
+| `border` | `#E2E8F0` | dividers, panel borders | n/a |
+| `surface` | `#F5F7FA` | page and section backgrounds | n/a |
+| `success` / `warning` / `danger` / `info` | `#047857` / `#B45309` / `#B91C1C` / `#1D4ED8` | status | ≥5:1 |
+
+Rate tags: Cheapest (green on `#D1FAE5`), Fastest (orange-brown on `#FFEDD5`), Guaranteed (slate on
+`#F1F5F9`), Simulated (amber on `#FEF3C7`).
 
 Colour is never the only signal: status badges always pair colour with an icon and text.
 
@@ -40,8 +46,8 @@ Colour is never the only signal: status badges always pair colour with an icon a
 | Void requested / Voided | warning / muted | x-circle |
 
 ### Typography
-- Font: **Inter** (self-hosted, latin + latin-ext subsets for French/Spanish diacritics); fallback
-  `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`.
+- Fonts: **Manrope** (headings, prices, numbers on display) and **Inter** (body), both self-hosted
+  variable fonts with latin-ext for French/Spanish; fallback `system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`.
 - Scale (rem): 0.875 small · 1 body · 1.125 lead · 1.25 h5 · 1.5 h4 · 1.875 h3 · 2.25 h2 · 3 h1 (display, desktop only; 2.25 on mobile).
 - Tabular numerals (`font-variant-numeric: tabular-nums`) for prices, weights and tracking numbers.
 

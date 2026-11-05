@@ -9,9 +9,9 @@ import { FaqList } from './faq-list';
   selector: 'vx-page-header',
   imports: [TranslatePipe],
   template: `
-    <section class="hero py-5 border-bottom">
+    <section class="page-hero">
       <div class="container" style="max-width: 960px">
-        <h1 class="fw-bold">{{ title() | t }}</h1>
+        <h1>{{ title() | t }}</h1>
         @if (lead()) {
           <p class="lead text-muted-strong mb-0">{{ lead()! | t }}</p>
         }

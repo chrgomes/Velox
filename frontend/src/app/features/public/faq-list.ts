@@ -12,35 +12,34 @@ const ITEMS: { q: TKey; a: TKey }[] = [
   { q: 'faq.q7', a: 'faq.a7' },
 ];
 
-/** Accessible accordion (button + region pattern). */
+/** Accessible disclosure list (button + region pattern). */
 @Component({
   selector: 'vx-faq-list',
   imports: [TranslatePipe],
   template: `
-    <div class="accordion">
+    <div class="faq-list">
       @for (item of items(); track item.q; let i = $index) {
-        <div class="accordion-item">
-          <h3 class="accordion-header">
+        <div class="faq-item">
+          <h3 class="m-0">
             <button
-              class="accordion-button"
+              class="faq-q"
               type="button"
-              [class.collapsed]="open() !== i"
               [attr.aria-expanded]="open() === i"
               [attr.aria-controls]="'faq-panel-' + i"
               [id]="'faq-btn-' + i"
               (click)="open.set(open() === i ? -1 : i)"
             >
               {{ item.q | t }}
+              <i class="bi bi-plus-lg" aria-hidden="true"></i>
             </button>
           </h3>
           <div
-            class="accordion-collapse collapse"
-            [class.show]="open() === i"
             [id]="'faq-panel-' + i"
             role="region"
             [attr.aria-labelledby]="'faq-btn-' + i"
+            [hidden]="open() !== i"
           >
-            <div class="accordion-body text-muted-strong">{{ item.a | t }}</div>
+            <p class="faq-a">{{ item.a | t }}</p>
           </div>
         </div>
       }

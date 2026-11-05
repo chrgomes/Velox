@@ -9,36 +9,57 @@ $info: $vx-info;
 $warning: $vx-warning;
 $danger: $vx-danger;
 $light: $vx-surface;
-$dark: $vx-ink;
+$dark: $vx-navy;
 $body-color: $vx-ink;
 $body-bg: #ffffff;
 $border-color: $vx-border;
 $secondary-color: $vx-muted;
 $font-family-sans-serif: $vx-font;
+$headings-font-family: $vx-font-display;
+$headings-font-weight: 800;
+$headings-letter-spacing: -0.02em;
 $border-radius: $vx-radius;
+$border-radius-sm: 0.5rem;
 $border-radius-lg: $vx-radius-card;
 $link-color: $vx-primary;
 $link-hover-color: $vx-primary-dark;
+$link-decoration: none;
+$link-hover-decoration: underline;
 $enable-shadows: false;
-$input-btn-focus-color: rgba($vx-primary, 0.35);
+$input-btn-focus-color: rgba($vx-primary, 0.3);
+$input-border-color: $vx-border-strong;
+$input-padding-y: 0.625rem;
+$input-padding-x: 0.875rem;
+$btn-padding-y: 0.625rem;
+$btn-padding-x: 1.125rem;
+$btn-font-weight: 600;
 $h1-font-size: 2.25rem;
 $h2-font-size: 1.875rem;
 $h3-font-size: 1.5rem;
 $h4-font-size: 1.25rem;
-$h5-font-size: 1.125rem;
+$h5-font-size: 1.0625rem;
 $h6-font-size: 1rem;
-$headings-font-weight: 700;
 $min-contrast-ratio: 4.5;
 // Bootstrap applies half of this on each side: 2rem gives the 16px phone gutter.
 $container-padding-x: 2rem;
-// Alerts: Bootstrap tints the dark warning token into a muddy brown, so set amber tones explicitly.
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1200px,
+);
+// Alerts: set amber tones explicitly (Bootstrap would tint the dark warning token brown).
 $warning-bg-subtle: #fef3c7;
 $warning-border-subtle: #fcd34d;
 $warning-text-emphasis: #78350f;
+$table-cell-padding-y: 0.875rem;
+$table-th-font-weight: 600;
 
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 @import '@fontsource-variable/inter/index.css';
+@import '@fontsource-variable/manrope/index.css';
 
 // ---- Base -----------------------------------------------------------------------------------
 html {
@@ -46,10 +67,15 @@ html {
 }
 body {
   -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
 }
 :focus-visible {
-  outline: 3px solid rgba($vx-primary, 0.6);
+  outline: 3px solid rgba($vx-primary, 0.55);
   outline-offset: 2px;
+}
+.font-display {
+  font-family: $vx-font-display;
+  letter-spacing: -0.025em;
 }
 .tabular {
   font-variant-numeric: tabular-nums;
@@ -57,36 +83,83 @@ body {
 .text-muted-strong {
   color: $vx-muted;
 }
+.text-subtle {
+  color: $vx-subtle;
+}
 .bg-surface {
   background: $vx-surface;
 }
-.bg-accent-vx {
-  background: $vx-accent;
-  color: $vx-ink;
+.bg-navy {
+  background: $vx-navy;
+  color: #fff;
 }
 .bg-primary-subtle-vx {
   background: $vx-primary-subtle;
 }
+.bg-accent-vx {
+  background: $vx-primary;
+  color: #fff;
+}
 .card {
   border-radius: $vx-radius-card;
+  border-color: $vx-border;
 }
 .shadow-card {
-  box-shadow:
-    0 1px 2px rgba(17, 24, 39, 0.06),
-    0 1px 3px rgba(17, 24, 39, 0.1);
+  box-shadow: 0 1px 2px rgba(11, 19, 36, 0.04);
+  border: 1px solid $vx-border !important;
+}
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $vx-subtle;
+}
+.section-title {
+  font-family: $vx-font-display;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-size: clamp(1.875rem, 3vw + 0.5rem, 2.75rem);
 }
 
-// Accent CTA: always dark text (contrast 8.3:1).
+// Primary call to action (kept as .btn-accent so existing templates pick it up).
 .btn-accent {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #{$vx-primary};
+  --bs-btn-border-color: #{$vx-primary};
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #{$vx-primary-dark};
+  --bs-btn-hover-border-color: #{$vx-primary-dark};
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #{$vx-primary-dark};
+  --bs-btn-disabled-bg: #{$vx-primary};
+  --bs-btn-disabled-border-color: #{$vx-primary};
+}
+// White button for navy backgrounds.
+.btn-on-navy {
+  --bs-btn-color: #{$vx-navy};
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: #fff;
+  --bs-btn-hover-color: #{$vx-navy};
+  --bs-btn-hover-bg: #e8edf7;
+  --bs-btn-hover-border-color: #e8edf7;
+  --bs-btn-active-bg: #dfe6f3;
+}
+.btn-outline-on-navy {
+  --bs-btn-color: #fff;
+  --bs-btn-border-color: #{$vx-navy-line};
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #{$vx-navy-2};
+  --bs-btn-hover-border-color: #{$vx-navy-line};
+  --bs-btn-active-bg: #{$vx-navy-2};
+}
+.btn-outline-secondary {
   --bs-btn-color: #{$vx-ink};
-  --bs-btn-bg: #{$vx-accent};
-  --bs-btn-border-color: #{$vx-accent};
+  --bs-btn-border-color: #{$vx-border-strong};
   --bs-btn-hover-color: #{$vx-ink};
-  --bs-btn-hover-bg: #{color.adjust($vx-accent, $lightness: -6%)};
-  --bs-btn-hover-border-color: #{color.adjust($vx-accent, $lightness: -6%)};
-  --bs-btn-active-color: #{$vx-ink};
-  --bs-btn-active-bg: #{color.adjust($vx-accent, $lightness: -10%)};
-  --bs-btn-font-weight: 600;
+  --bs-btn-hover-bg: #{$vx-surface};
+  --bs-btn-hover-border-color: #{$vx-border-strong};
 }
 
 .skip-link {
@@ -100,32 +173,516 @@ body {
   }
 }
 
-.hero {
-  background:
-    radial-gradient(1200px 400px at 85% -10%, rgba($vx-accent, 0.18), transparent 60%),
-    linear-gradient(180deg, $vx-primary-subtle, #ffffff);
+// ---- Brand mark ---------------------------------------------------------------------------
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: $vx-font-display;
+  font-weight: 800;
+  font-size: 1.375rem;
+  letter-spacing: -0.02em;
+  color: $vx-ink;
+  &:hover {
+    text-decoration: none;
+    color: $vx-ink;
+  }
+}
+.on-navy .brand,
+.on-navy .brand:hover {
+  color: #fff;
 }
 
-.icon-circle {
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 50%;
+// ---- Public header --------------------------------------------------------------------------
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid $vx-border;
+  .nav-link {
+    color: $vx-muted;
+    font-weight: 500;
+    &:hover,
+    &.active {
+      color: $vx-ink;
+    }
+  }
+}
+.site-header.on-navy {
+  background: $vx-navy;
+  border-bottom-color: transparent;
+  .nav-link {
+    color: #d5dcea;
+    &:hover,
+    &.active {
+      color: #fff;
+    }
+  }
+  .navbar-toggler {
+    border-color: $vx-navy-line;
+  }
+  .navbar-toggler-icon {
+    filter: invert(1);
+  }
+}
+
+// ---- Hero + quote bar -------------------------------------------------------------------------
+.hero {
+  background: $vx-navy;
+  color: #fff;
+  padding: 4.5rem 0 7.5rem;
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid $vx-navy-line;
+    border-radius: 999px;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: $vx-on-navy;
+  }
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 99px;
+    background: #4ade80;
+  }
+  h1 {
+    font-size: clamp(2.25rem, 4.5vw + 0.5rem, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    max-width: 54rem;
+    margin-inline: auto;
+  }
+  .lead {
+    color: $vx-on-navy;
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+  .fine-print {
+    color: #a9b4cc;
+    font-size: 0.875rem;
+  }
+  @include media-breakpoint-down(md) {
+    padding-top: 2rem;
+  }
+}
+.quote-bar {
+  background: #fff;
+  color: $vx-ink;
+  border-radius: 1rem;
+  padding: 0.625rem;
+  display: grid;
+  gap: 0.375rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  box-shadow: 0 30px 60px rgba(3, 10, 30, 0.35);
+  text-align: left;
+  .cell {
+    background: $vx-surface;
+    border-radius: $vx-radius;
+    padding: 0.625rem 0.875rem;
+    border: 1px solid transparent;
+    &:focus-within {
+      border-color: $vx-primary;
+      background: #fff;
+    }
+    &.invalid {
+      border-color: $vx-danger;
+    }
+  }
+  .cell-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $vx-muted;
+    margin: 0 0 0.125rem;
+    padding: 0;
+    float: none;
+    width: auto;
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  .cell-row {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  input,
+  select {
+    border: 0;
+    background: transparent;
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: $vx-ink;
+    padding: 0.125rem 0;
+    &:focus {
+      outline: none;
+    }
+  }
+  input {
+    flex: 1 1 0;
+    width: 100%;
+    min-width: 0;
+  }
+  select {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 3.25rem;
+    padding-right: 0.25rem;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+  select {
+    font-size: 0.875rem;
+    color: $vx-ink-2;
+    cursor: pointer;
+  }
+  .country {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: $vx-navy;
+    background: #e3e8f2;
+    border-radius: 0.3125rem;
+    padding: 0.125rem 0.25rem;
+  }
+  .times {
+    color: $vx-subtle;
+  }
+  .submit {
+    min-height: 4rem;
+    font-size: 1.0625rem;
+    border-radius: $vx-radius;
+  }
+  .cell-error {
+    font-size: 0.8125rem;
+    color: $vx-danger;
+    margin-top: 0.125rem;
+  }
+}
+// On wide screens give the dimensions cell more room than the rest.
+@include media-breakpoint-up(xl) {
+  .quote-bar {
+    grid-template-columns: 1fr 1fr 0.85fr 1.45fr 11.5rem;
+  }
+}
+
+// ---- Rate results -----------------------------------------------------------------------------
+.results-panel {
+  background: #fff;
+  border: 1px solid $vx-border;
+  border-radius: 1.125rem;
+  box-shadow: 0 24px 50px rgba(11, 27, 58, 0.12);
+  overflow: hidden;
+  .panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.125rem 1.5rem;
+    border-bottom: 1px solid $vx-border;
+  }
+}
+.rate-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+  gap: 0.75rem 1rem;
+  align-items: center;
+  padding: 1.125rem 1.5rem;
+  border-bottom: 1px solid #eef1f6;
+  &:last-child {
+    border-bottom: 0;
+  }
+  &.featured {
+    background: #f8faff;
+  }
+  .price {
+    font-family: $vx-font-display;
+    font-weight: 800;
+    font-size: 1.375rem;
+    font-variant-numeric: tabular-nums;
+  }
+}
+.carrier-mark {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 2.5rem;
+  border-radius: 0.625rem;
+  background: $vx-primary-subtle;
+  color: #1e3a8a;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: $vx-primary-subtle;
-  color: $vx-primary;
-  font-size: 1.25rem;
+  font-family: $vx-font-display;
+  font-weight: 800;
+  font-size: 0.8125rem;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.25rem 0.625rem;
+  white-space: nowrap;
+}
+.tag-cheapest {
+  color: #065f46;
+  background: #d1fae5;
+}
+.tag-fastest {
+  color: #9a3412;
+  background: #ffedd5;
+}
+.tag-guaranteed {
+  color: $vx-ink-2;
+  background: #f1f5f9;
+}
+.tag-simulated {
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+}
+.segmented {
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 0.25rem;
+  background: #f1f5f9;
+  border-radius: $vx-radius;
+  padding: 0.25rem;
+  button {
+    border: 0;
+    background: transparent;
+    border-radius: 0.5rem;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $vx-muted;
+    &[aria-pressed='true'] {
+      background: #fff;
+      color: $vx-ink;
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(11, 19, 36, 0.12);
+    }
+  }
 }
 
-.portal-nav .nav-link {
-  color: $vx-ink;
-  border-radius: $vx-radius;
-  &.active {
-    background: $vx-primary-subtle;
+// ---- Marketing sections -----------------------------------------------------------------------
+.carrier-strip {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 3rem;
+  font-family: $vx-font-display;
+  font-weight: 700;
+  font-size: 1.375rem;
+  color: #94a3b8;
+}
+.feature-icon {
+  color: $vx-primary;
+  font-size: 1.625rem;
+  line-height: 1;
+}
+.step-card {
+  background: #fff;
+  border: 1px solid $vx-border;
+  border-radius: $vx-radius-card;
+  padding: 1.75rem;
+  height: 100%;
+  .num {
+    font-family: $vx-font-display;
+    font-weight: 800;
     color: $vx-primary;
-    font-weight: 600;
   }
+}
+.navy-band {
+  background: $vx-navy;
+  color: #fff;
+  border-radius: 1.375rem;
+  padding: clamp(1.75rem, 4vw, 3.5rem);
+  .muted {
+    color: $vx-on-navy;
+  }
+  .eyebrow-on-navy {
+    color: #93b0ff;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  .point {
+    display: flex;
+    gap: 0.875rem;
+    align-items: flex-start;
+    background: $vx-navy-2;
+    border-radius: 0.75rem;
+    padding: 1.125rem 1.25rem;
+    i {
+      color: #93b0ff;
+    }
+  }
+}
+.faq-list {
+  border-top: 1px solid $vx-border;
+  .faq-item {
+    border-bottom: 1px solid $vx-border;
+  }
+  .faq-q {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    background: transparent;
+    border: 0;
+    padding: 1.25rem 0;
+    text-align: left;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: $vx-ink;
+    i {
+      color: $vx-muted;
+      transition: transform 0.15s;
+    }
+    &[aria-expanded='true'] i {
+      transform: rotate(45deg);
+    }
+  }
+  .faq-a {
+    color: $vx-muted;
+    padding: 0 0 1.25rem;
+    max-width: 36rem;
+    margin: -0.5rem 0 0;
+  }
+}
+.page-hero {
+  background: $vx-surface;
+  border-bottom: 1px solid $vx-border;
+  padding: 3.5rem 0;
+  h1 {
+    font-size: clamp(2rem, 3vw + 0.75rem, 3rem);
+    letter-spacing: -0.03em;
+  }
+  .lead {
+    color: $vx-muted;
+  }
+}
+
+// ---- Footer -----------------------------------------------------------------------------------
+.site-footer {
+  background: $vx-surface;
+  border-top: 1px solid $vx-border;
+  a {
+    color: $vx-ink-2;
+  }
+}
+
+// ---- Portal -----------------------------------------------------------------------------------
+.portal-layout {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+.portal-side {
+  flex: 1 1 15rem;
+  max-width: 16.25rem;
+  background: $vx-navy;
+  color: #d5dcea;
+  padding: 1.375rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: $vx-on-navy;
+    border-radius: $vx-radius;
+    padding: 0.625rem 0.75rem;
+    font-weight: 500;
+    &:hover {
+      background: $vx-navy-2;
+      color: #fff;
+      text-decoration: none;
+    }
+    &.active {
+      background: #1a2f5c;
+      color: #fff;
+    }
+  }
+  .account {
+    margin-top: auto;
+    padding: 1rem 0.75rem 0.25rem;
+    border-top: 1px solid #1f3360;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .avatar {
+    width: 2.125rem;
+    height: 2.125rem;
+    border-radius: 99px;
+    background: #23386a;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+}
+.portal-main {
+  flex: 999 1 35rem;
+  min-width: 0;
+  background: $vx-surface;
+}
+.portal-topbar {
+  background: #fff;
+  border-bottom: 1px solid $vx-border;
+  padding: 0.875rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+@include media-breakpoint-down(lg) {
+  .portal-side {
+    display: none;
+  }
+  .portal-topbar {
+    padding: 0.75rem 1rem;
+  }
+}
+.kpi {
+  background: #fff;
+  border: 1px solid $vx-border;
+  border-radius: $vx-radius-card;
+  padding: 1.125rem 1.25rem;
+  height: 100%;
+  .value {
+    font-family: $vx-font-display;
+    font-weight: 800;
+    font-size: 1.875rem;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+  .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 99px;
+    display: inline-block;
+  }
+}
+.panel {
+  background: #fff;
+  border: 1px solid $vx-border;
+  border-radius: $vx-radius-card;
 }
 
 // Mobile bottom tab bar for the portal.
@@ -163,6 +720,24 @@ body {
   }
 }
 
+// ---- Shared bits ------------------------------------------------------------------------------
+.icon-circle {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $vx-primary-subtle;
+  color: $vx-primary;
+  font-size: 1.25rem;
+}
+.table > thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $vx-subtle;
+}
 // Stack tables into cards on small screens.
 @include media-breakpoint-down(md) {
   .table-stack {
@@ -190,7 +765,6 @@ body {
     }
   }
 }
-
 .qr-box svg {
   width: 200px;
   height: 200px;

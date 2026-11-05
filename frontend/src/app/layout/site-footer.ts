@@ -1,64 +1,69 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '../core/i18n/i18n.service';
+import { Brand } from '../shared/brand';
 import { LanguageSwitcher } from '../shared/language-switcher';
 
 @Component({
   selector: 'vx-site-footer',
-  imports: [RouterLink, TranslatePipe, LanguageSwitcher],
+  imports: [RouterLink, TranslatePipe, LanguageSwitcher, Brand],
   template: `
-    <footer class="bg-dark text-white mt-5 pt-5 pb-4">
-      <div class="container">
+    <footer class="site-footer">
+      <div class="container pt-5 pb-4">
         <div class="row g-4">
           <div class="col-12 col-md-4">
-            <p class="fw-bold fs-5 mb-2">
-              <i class="bi bi-box-seam-fill me-2" aria-hidden="true"></i>Velox
+            <vx-brand />
+            <p class="small text-muted-strong mt-3 mb-3" style="max-width: 22rem">
+              {{ 'footer.tagline' | t }}
             </p>
-            <p class="text-white-50 small">{{ 'footer.tagline' | t }}</p>
+            <vx-language-switcher />
           </div>
-          <nav class="col-6 col-md-2" [attr.aria-label]="'footer.company' | t">
-            <p class="fw-semibold small text-uppercase">{{ 'footer.company' | t }}</p>
-            <ul class="list-unstyled small">
+          <nav class="col-6 col-md-2 offset-md-2" [attr.aria-label]="'footer.shipping' | t">
+            <p class="eyebrow mb-3">{{ 'footer.shipping' | t }}</p>
+            <ul class="list-unstyled d-grid gap-2">
               <li>
-                <a class="link-light" routerLink="/about">{{ 'nav.about' | t }}</a>
+                <a routerLink="/" fragment="calculator">{{ 'nav.rates' | t }}</a>
               </li>
               <li>
-                <a class="link-light" routerLink="/contact">{{ 'nav.contact' | t }}</a>
+                <a routerLink="/services">{{ 'nav.services' | t }}</a>
               </li>
               <li>
-                <a class="link-light" routerLink="/business">{{ 'nav.business' | t }}</a>
+                <a routerLink="/faq">{{ 'nav.help' | t }}</a>
               </li>
             </ul>
           </nav>
-          <nav class="col-6 col-md-2" [attr.aria-label]="'footer.shipping' | t">
-            <p class="fw-semibold small text-uppercase">{{ 'footer.shipping' | t }}</p>
-            <ul class="list-unstyled small">
+          <nav class="col-6 col-md-2" [attr.aria-label]="'footer.company' | t">
+            <p class="eyebrow mb-3">{{ 'footer.company' | t }}</p>
+            <ul class="list-unstyled d-grid gap-2">
               <li>
-                <a class="link-light" routerLink="/services">{{ 'nav.services' | t }}</a>
+                <a routerLink="/about">{{ 'nav.about' | t }}</a>
               </li>
               <li>
-                <a class="link-light" routerLink="/" fragment="calculator">{{ 'nav.rates' | t }}</a>
+                <a routerLink="/business">{{ 'nav.business' | t }}</a>
               </li>
               <li>
-                <a class="link-light" routerLink="/faq">{{ 'nav.help' | t }}</a>
+                <a routerLink="/contact">{{ 'nav.contact' | t }}</a>
               </li>
             </ul>
           </nav>
           <nav class="col-6 col-md-2" [attr.aria-label]="'footer.legal' | t">
-            <p class="fw-semibold small text-uppercase">{{ 'footer.legal' | t }}</p>
-            <ul class="list-unstyled small">
+            <p class="eyebrow mb-3">{{ 'footer.legal' | t }}</p>
+            <ul class="list-unstyled d-grid gap-2">
               <li>
-                <a class="link-light" routerLink="/privacy">{{ 'nav.privacy' | t }}</a>
+                <a routerLink="/privacy">{{ 'nav.privacy' | t }}</a>
               </li>
               <li>
-                <a class="link-light" routerLink="/terms">{{ 'nav.terms' | t }}</a>
+                <a routerLink="/terms">{{ 'nav.terms' | t }}</a>
               </li>
             </ul>
           </nav>
-          <div class="col-6 col-md-2"><vx-language-switcher [dark]="true" /></div>
         </div>
-        <hr class="border-secondary" />
-        <p class="small text-white-50 mb-0">{{ 'footer.copyright' | t: { year: year } }}</p>
+        <div
+          class="d-flex flex-wrap justify-content-between gap-2 border-top mt-4 pt-3 small text-subtle"
+        >
+          <span>{{ 'footer.copyright' | t: { year: year } }}</span>
+          <span>English · Français · Español</span>
+        </div>
       </div>
     </footer>
   `,
