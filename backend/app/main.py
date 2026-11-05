@@ -59,11 +59,12 @@ def create_app() -> FastAPI:
 
     api = APIRouter(prefix=API_PREFIX)
 
-    @api.get("/health", tags=["health"])
+    # HEAD is allowed so uptime monitors and wait-on style checks (which default to HEAD) work.
+    @api.api_route("/health", methods=["GET", "HEAD"], tags=["health"])
     def health() -> dict:
         return {"status": "ok"}
 
-    @api.get("/ready", tags=["health"])
+    @api.api_route("/ready", methods=["GET", "HEAD"], tags=["health"])
     def ready() -> dict:
         from alembic.config import Config
         from alembic.script import ScriptDirectory

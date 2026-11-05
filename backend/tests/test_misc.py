@@ -25,6 +25,9 @@ def test_health_and_ready(client):
     assert client.get("/api/v1/health").json() == {"status": "ok"}
     assert client.get("/api/v1/ready").json()["status"] == "ready"
     assert client.get("/api/v1/health").headers["X-Content-Type-Options"] == "nosniff"
+    # Monitoring tools (and wait-on in CI) probe with HEAD.
+    assert client.head("/api/v1/health").status_code == 200
+    assert client.head("/api/v1/ready").status_code == 200
 
 
 def test_errors_use_envelope(client):

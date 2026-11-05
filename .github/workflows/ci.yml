@@ -70,6 +70,10 @@ jobs:
     env:
       VELOX_DATABASE_URL: postgresql+psycopg://velox:velox@localhost:5432/velox
       VELOX_APP_MODE: development
+      VELOX_PUBLIC_WEB_URL: http://127.0.0.1:4200
+      # Use IPv4 explicitly: on GitHub runners "localhost" also resolves to ::1, which Node tries
+      # first, while the servers below listen on 127.0.0.1 only.
+      E2E_BASE_URL: http://127.0.0.1:4200
     steps:
       - uses: actions/checkout@v4
       - name: Start PostgreSQL
@@ -93,17 +97,22 @@ jobs:
           pip install -r requirements.txt
           alembic upgrade head
           python -m scripts.seed
-          nohup uvicorn app.main:app --port 8000 > ../api.log 2>&1 &
+          nohup uvicorn app.main:app --host 127.0.0.1 --port 8000 > ../api.log 2>&1 &
       - name: Start web
         working-directory: frontend
         run: |
           npm ci
           npx playwright install --with-deps chromium
-          nohup npx ng serve --port 4200 > ../web.log 2>&1 &
-          npx --yes wait-on@8.0.3 -t 120000 http://localhost:4200 http://localhost:8000/api/v1/ready
+          nohup npx ng serve --host 127.0.0.1 --port 4200 > ../web.log 2>&1 &
+          npx --yes wait-on@8.0.3 -t 120000 http-get://127.0.0.1:8000/api/v1/ready http-get://127.0.0.1:4200
       - name: End-to-end tests
         working-directory: frontend
         run: npx playwright test
+      - name: Show server logs
+        if: failure()
+        run: |
+          echo "::group::API log"; cat api.log || true; echo "::endgroup::"
+          echo "::group::Web log"; tail -n 100 web.log || true; echo "::endgroup::"
       - if: failure()
         uses: actions/upload-artifact@v4
         with:
