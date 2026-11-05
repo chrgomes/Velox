@@ -69,7 +69,7 @@ export const en = {
   'calc.create_account': 'Create a free account to be ready.',
 
   'home.eyebrow': 'Canada · United States · Cross-border',
-  'home.title': 'Ship across Canada and the US for less.',
+  'home.title': 'Ship across Canada and the US.',
   'home.subtitle':
     'Compare Canada Post, Purolator, UPS, FedEx and USPS in one search. Print your label in minutes. Pay only for what you ship.',
   'home.carriers_title': 'One account. Six carriers.',

@@ -71,7 +71,7 @@ export const fr: Record<TKey, string> = {
   'calc.create_account': 'Créez un compte gratuit pour être prêt.',
 
   'home.eyebrow': 'Canada · États-Unis · Transfrontalier',
-  'home.title': 'Expédiez au Canada et aux États-Unis pour moins cher.',
+  'home.title': 'Expédiez au Canada et aux États-Unis.',
   'home.subtitle':
     'Comparez Postes Canada, Purolator, UPS, FedEx et USPS en une seule recherche. Imprimez votre étiquette en quelques minutes. Ne payez que ce que vous expédiez.',
   'home.carriers_title': 'Un compte. Six transporteurs.',
