@@ -1,0 +1,25 @@
+[Unit]
+Description=Velox API (gunicorn + uvicorn workers)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=velox
+Group=velox
+WorkingDirectory=/opt/velox/current/backend
+EnvironmentFile=/etc/velox/api.env
+ExecStart=/opt/velox/venv/bin/gunicorn app.main:app \
+    --worker-class uvicorn.workers.UvicornWorker \
+    --workers 3 --bind 127.0.0.1:8000 \
+    --graceful-timeout 30 --timeout 60 --access-logfile -
+Restart=always
+RestartSec=3
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/velox
+
+[Install]
+WantedBy=multi-user.target

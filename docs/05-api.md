@@ -47,7 +47,8 @@ Legend: 🌐 public · 👤 authenticated customer · 🛡 staff (permission lis
 | POST | `/auth/password/change` | 👤 | `{current_password, new_password}` |
 | POST | `/auth/mfa/setup` | 👤 | → otpauth URI + QR (SVG) |
 | POST | `/auth/mfa/enable` | 👤 | `{code}` → recovery codes (shown once) |
-| POST | `/auth/mfa/disable` | 👤 | `{password, code}` |
+| POST | `/auth/mfa/disable` | 👤 | `{password, code}` (not allowed for staff) |
+| POST | `/auth/mfa/recovery-codes` | 👤 | `{code}` → new recovery codes |
 | GET | `/auth/sessions` | 👤 | active sessions |
 | DELETE | `/auth/sessions/{id}` | 👤 | revoke one |
 
@@ -64,12 +65,17 @@ Legend: 🌐 public · 👤 authenticated customer · 🛡 staff (permission lis
 | GET / PATCH / DELETE | `/customers/addresses/{id}` | 👤 | |
 | POST | `/addresses/verify` | 👤 | verify without saving → normalized address + messages |
 
+## Development only
+| Method | Path | | Description |
+|---|---|---|---|
+| GET | `/dev/emails?to=` | 🌐 | Recent emails sent by the console provider. Mounted only when `VELOX_APP_MODE=development`. |
+
 ## Reference data
 | Method | Path | | Description |
 |---|---|---|---|
 | GET | `/reference/countries` | 🌐 | supported countries, regions, postal formats |
-| GET | `/reference/carriers` | 🌐 | enabled carriers + services |
-| GET | `/reference/package-types` | 🌐 | predefined packages per carrier |
+| GET | `/reference/carriers` | 🌐 | enabled carriers + services (Phase 2) |
+| GET | `/reference/package-types` | 🌐 | predefined packages per carrier (Phase 2) |
 
 ## Quotes (public calculator)
 | Method | Path | | Description |

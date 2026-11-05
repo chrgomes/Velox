@@ -1,0 +1,197 @@
+@use 'sass:color';
+@use 'styles/tokens' as *;
+
+// ---- Bootstrap configuration -------------------------------------------------------------
+$primary: $vx-primary;
+$secondary: $vx-muted;
+$success: $vx-success;
+$info: $vx-info;
+$warning: $vx-warning;
+$danger: $vx-danger;
+$light: $vx-surface;
+$dark: $vx-ink;
+$body-color: $vx-ink;
+$body-bg: #ffffff;
+$border-color: $vx-border;
+$secondary-color: $vx-muted;
+$font-family-sans-serif: $vx-font;
+$border-radius: $vx-radius;
+$border-radius-lg: $vx-radius-card;
+$link-color: $vx-primary;
+$link-hover-color: $vx-primary-dark;
+$enable-shadows: false;
+$input-btn-focus-color: rgba($vx-primary, 0.35);
+$h1-font-size: 2.25rem;
+$h2-font-size: 1.875rem;
+$h3-font-size: 1.5rem;
+$h4-font-size: 1.25rem;
+$h5-font-size: 1.125rem;
+$h6-font-size: 1rem;
+$headings-font-weight: 700;
+$min-contrast-ratio: 4.5;
+// Bootstrap applies half of this on each side: 2rem gives the 16px phone gutter.
+$container-padding-x: 2rem;
+// Alerts: Bootstrap tints the dark warning token into a muddy brown, so set amber tones explicitly.
+$warning-bg-subtle: #fef3c7;
+$warning-border-subtle: #fcd34d;
+$warning-text-emphasis: #78350f;
+
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import '@fontsource-variable/inter/index.css';
+
+// ---- Base -----------------------------------------------------------------------------------
+html {
+  scroll-behavior: smooth;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible {
+  outline: 3px solid rgba($vx-primary, 0.6);
+  outline-offset: 2px;
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+.text-muted-strong {
+  color: $vx-muted;
+}
+.bg-surface {
+  background: $vx-surface;
+}
+.bg-accent-vx {
+  background: $vx-accent;
+  color: $vx-ink;
+}
+.bg-primary-subtle-vx {
+  background: $vx-primary-subtle;
+}
+.card {
+  border-radius: $vx-radius-card;
+}
+.shadow-card {
+  box-shadow:
+    0 1px 2px rgba(17, 24, 39, 0.06),
+    0 1px 3px rgba(17, 24, 39, 0.1);
+}
+
+// Accent CTA: always dark text (contrast 8.3:1).
+.btn-accent {
+  --bs-btn-color: #{$vx-ink};
+  --bs-btn-bg: #{$vx-accent};
+  --bs-btn-border-color: #{$vx-accent};
+  --bs-btn-hover-color: #{$vx-ink};
+  --bs-btn-hover-bg: #{color.adjust($vx-accent, $lightness: -6%)};
+  --bs-btn-hover-border-color: #{color.adjust($vx-accent, $lightness: -6%)};
+  --bs-btn-active-color: #{$vx-ink};
+  --bs-btn-active-bg: #{color.adjust($vx-accent, $lightness: -10%)};
+  --bs-btn-font-weight: 600;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 2000;
+  &:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+}
+
+.hero {
+  background:
+    radial-gradient(1200px 400px at 85% -10%, rgba($vx-accent, 0.18), transparent 60%),
+    linear-gradient(180deg, $vx-primary-subtle, #ffffff);
+}
+
+.icon-circle {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $vx-primary-subtle;
+  color: $vx-primary;
+  font-size: 1.25rem;
+}
+
+.portal-nav .nav-link {
+  color: $vx-ink;
+  border-radius: $vx-radius;
+  &.active {
+    background: $vx-primary-subtle;
+    color: $vx-primary;
+    font-weight: 600;
+  }
+}
+
+// Mobile bottom tab bar for the portal.
+.bottom-tabs {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  background: #fff;
+  border-top: 1px solid $vx-border;
+  a {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0.25rem;
+    color: $vx-muted;
+    font-size: 0.75rem;
+    text-decoration: none;
+    &.active {
+      color: $vx-primary;
+      font-weight: 600;
+    }
+    i {
+      display: block;
+      font-size: 1.25rem;
+    }
+  }
+}
+.has-bottom-tabs {
+  padding-bottom: 4.5rem;
+}
+@include media-breakpoint-up(lg) {
+  .has-bottom-tabs {
+    padding-bottom: 0;
+  }
+}
+
+// Stack tables into cards on small screens.
+@include media-breakpoint-down(md) {
+  .table-stack {
+    thead {
+      display: none;
+    }
+    tr {
+      display: block;
+      border: 1px solid $vx-border;
+      border-radius: $vx-radius;
+      margin-bottom: 0.75rem;
+      padding: 0.5rem 0.75rem;
+    }
+    td {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      border: 0;
+      padding: 0.25rem 0;
+      &::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: $vx-muted;
+      }
+    }
+  }
+}
+
+.qr-box svg {
+  width: 200px;
+  height: 200px;
+}

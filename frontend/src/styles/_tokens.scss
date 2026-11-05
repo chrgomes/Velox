@@ -1,0 +1,23 @@
+// Design tokens (docs/06-design-system.md §2). Brand values live here only.
+$vx-primary: #1e40af;
+$vx-primary-dark: #1e3a8a;
+$vx-primary-subtle: #eff4ff;
+$vx-accent: #f59e0b;
+$vx-ink: #111827;
+$vx-muted: #4b5563;
+$vx-border: #d1d5db;
+$vx-surface: #f9fafb;
+$vx-success: #047857;
+$vx-warning: #b45309;
+$vx-danger: #b91c1c;
+$vx-info: #0369a1;
+
+$vx-radius: 0.5rem;
+$vx-radius-card: 0.75rem;
+$vx-font:
+  'Inter Variable',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  Roboto,
+  sans-serif;
