@@ -1,0 +1,22 @@
+[Unit]
+Description=Velox background worker (email outbox, maintenance)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=velox
+Group=velox
+WorkingDirectory=/opt/velox/current/backend
+EnvironmentFile=/etc/velox/api.env
+ExecStart=/opt/velox/venv/bin/python -m scripts.worker
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

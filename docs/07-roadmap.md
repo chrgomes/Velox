@@ -5,8 +5,8 @@ label cannot be sold without them. MVP launch = end of Phase 2 + launch hardenin
 
 | Phase | Name | Outcome | Gate to next phase |
 |---|---|---|---|
-| 0 | Architecture | These documents | Owner sign-off ✅ (in progress) |
-| 1 | Foundation | Running app: auth, accounts, addresses, i18n, admin shell, CI, deploy to staging | Checklist §2 |
+| 0 | Architecture | These documents | ✅ Merged (PR #1) |
+| 1 | Foundation | Running app: auth, accounts, addresses, i18n, admin shell, CI, deploy to staging | Checklist §2 (code complete; staging deploy pending accounts) |
 | 2 | Shipping engine + payments | Quote → pay → label → track → void, admin pricing | Checklist §3 |
 | 2L | Launch hardening | Security review, legal pages, translations reviewed, production keys, monitoring | **MVP launch** |
 | 3 | Supplies store | Catalogue, cart, checkout reuse, inventory | |
@@ -31,15 +31,15 @@ label cannot be sold without them. MVP launch = end of Phase 2 + launch hardenin
 9. Deploy: provisioning scripts, nginx, systemd, staging environment on DigitalOcean, runbook.
 
 ## 2. Phase 1 exit checklist
-- [ ] All Phase 1 endpoints documented in OpenAPI and covered by pytest (incl. auth abuse cases)
-- [ ] Cross-account access tests pass (customer A cannot read B's addresses)
-- [ ] Staff permission matrix tests pass
-- [ ] Alembic upgrade/downgrade round-trip in CI
-- [ ] Angular unit tests for auth service, guards, interceptors, forms
-- [ ] Playwright: register → verify → login → add address → logout, in all 3 locales
+- [x] All Phase 1 endpoints documented in OpenAPI and covered by pytest (incl. auth abuse cases)
+- [x] Cross-account access tests pass (customer A cannot read B's addresses)
+- [x] Staff permission matrix tests pass
+- [x] Alembic upgrade/downgrade round-trip in CI
+- [x] Angular unit tests for auth service, guards, interceptors, forms
+- [x] Playwright: register → verify → login → add address → logout, in all 3 locales
 - [ ] Lighthouse ≥ 90 on homepage (mobile)
 - [ ] Staging deployed from scripts on a fresh droplet
-- [ ] PROGRESS.md updated
+- [x] PROGRESS.md updated
 
 ## 3. Phase 2 implementation order
 1. Carrier/service reference data, markup rules + pricing engine (pure, heavily unit-tested).

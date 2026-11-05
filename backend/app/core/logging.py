@@ -57,16 +57,16 @@ async def request_context_middleware(request: Request, call_next: Callable[[Requ
     start = time.perf_counter()
     try:
         response = await call_next(request)
+        response.headers["X-Request-ID"] = request_id
+        access_log.info(
+            "request",
+            extra={
+                "method": request.method,
+                "path": request.url.path,
+                "status": response.status_code,
+                "duration_ms": round((time.perf_counter() - start) * 1000, 1),
+            },
+        )
+        return response
     finally:
         request_id_var.reset(token)
-    response.headers["X-Request-ID"] = request_id
-    access_log.info(
-        "request",
-        extra={
-            "method": request.method,
-            "path": request.url.path,
-            "status": response.status_code,
-            "duration_ms": round((time.perf_counter() - start) * 1000, 1),
-        },
-    )
-    return response

@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  VELOX_DATABASE_URL: postgresql+psycopg://velox:velox@localhost:5432/velox_test
+
+jobs:
+  backend:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      # PostgreSQL is preinstalled on GitHub's Ubuntu runners; we start it natively (no containers).
+      - name: Start PostgreSQL
+        run: |
+          sudo systemctl start postgresql.service
+          sudo -u postgres psql -c "CREATE ROLE velox LOGIN PASSWORD 'velox' CREATEDB;"
+          sudo -u postgres createdb -O velox velox_test
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Lint
+        run: |
+          ruff check app scripts tests
+          ruff format --check app scripts tests
+      - name: Tests (includes migration drift check)
+        run: pytest -o addopts="" -p no:warnings
+      - name: Migration downgrade/upgrade round-trip
+        run: alembic downgrade base && alembic upgrade head
+      - name: Dependency audit
+        run: pip-audit -r requirements.lock.txt
+
+  frontend:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm test
+      - run: npx ng build
+      - run: npm audit --audit-level=high
+
+  e2e:
+    runs-on: ubuntu-24.04
+    needs: [backend, frontend]
+    env:
+      VELOX_DATABASE_URL: postgresql+psycopg://velox:velox@localhost:5432/velox
+      VELOX_APP_MODE: development
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start PostgreSQL
+        run: |
+          sudo systemctl start postgresql.service
+          sudo -u postgres psql -c "CREATE ROLE velox LOGIN PASSWORD 'velox' CREATEDB;"
+          sudo -u postgres createdb -O velox velox
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Start API
+        working-directory: backend
+        run: |
+          pip install -r requirements.txt
+          alembic upgrade head
+          python -m scripts.seed
+          nohup uvicorn app.main:app --port 8000 > ../api.log 2>&1 &
+      - name: Start web
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          nohup npx ng serve --port 4200 > ../web.log 2>&1 &
+          npx --yes wait-on@8.0.3 -t 120000 http://localhost:4200 http://localhost:8000/api/v1/ready
+      - name: End-to-end tests
+        working-directory: frontend
+        run: npx playwright test
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-report
+          path: |
+            frontend/playwright-report
+            frontend/test-results
+            api.log
+            web.log

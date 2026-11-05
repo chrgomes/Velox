@@ -16,6 +16,11 @@ New decisions are appended; superseded ones are marked, never deleted.
 | D-009 | 2026-11-04 | Money stored as integer minor units + ISO currency code | Accepted |
 | D-010 | 2026-11-04 | Card payments authorized first, captured only after labels are bought | Accepted |
 | D-011 | 2026-11-04 | Multi-label checkout (one card charge for many labels) | Accepted |
+| D-012 | 2026-11-05 | Business: Canadian company based in Ontario; Stripe Canada account | Accepted |
+| D-013 | 2026-11-05 | i18n: runtime JSON/TS dictionaries instead of `@angular/localize` builds | Accepted (supersedes part of 01-architecture §5) |
+| D-014 | 2026-11-05 | Phase 1 jobs: email outbox + simple worker; `procrastinate` deferred to Phase 2 | Accepted (refines D-008) |
+| D-015 | 2026-11-05 | Synchronous SQLAlchemy sessions (not async) | Accepted |
+| D-016 | 2026-11-05 | Staff must enable MFA before using the admin API | Accepted |
 
 ---
 
@@ -84,3 +89,29 @@ for provider failures.
 ## D-011 Multi-label checkout
 A checkout contains 1–N shipments with selected rates, paid with one PaymentIntent.
 Partial failures capture a reduced amount.
+
+## D-012 Business entity
+No company is registered yet. Test accounts (EasyPost, Stripe Canada, Sentry) are opened personally
+now; live accounts are activated under an Ontario or federal corporation before launch. Ontario HST is
+13%; other provinces are handled by Stripe Tax. Accountant and lawyer reviews remain launch blockers.
+
+## D-013 Runtime translations
+One build serves all three languages; switching language is instant and remembered per user.
+English is the source dictionary and French/Spanish are typed against it, so a missing key fails
+compilation. Server-side text (emails) uses JSON catalogs in `backend/app/locales/` with a test that
+all catalogs have identical keys. **Open item:** per-locale URLs (`/fr/…`) and prerendering for SEO
+are scheduled for launch hardening (2L).
+
+## D-014 Email outbox
+Emails are inserted into `email_messages` in the same transaction as the change that triggers them,
+then sent by `python -m scripts.worker` (claims rows with `SKIP LOCKED`, retries up to 5 times,
+removes bodies containing one-time links after delivery). Phase 2 needs scheduled and webhook jobs;
+`procrastinate` is evaluated then.
+
+## D-015 Synchronous database access
+FastAPI runs sync endpoints in a thread pool; sync SQLAlchemy is simpler to test and reason about.
+Revisit only if profiling shows thread-pool saturation.
+
+## D-016 Staff MFA
+Staff can sign in without MFA but every admin endpoint returns `auth.staff_mfa_required` until it is
+enabled, and staff cannot turn it off.

@@ -11,7 +11,7 @@ SUPPORTED_COUNTRIES = ("US", "CA")
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_prefix="VELOX_", extra="ignore")
+    model_config = SettingsConfigDict(env_file=".env", env_prefix="VELOX_", extra="ignore", env_ignore_empty=True)
 
     app_mode: Literal["development", "sandbox", "production"] = "development"
     app_name: str = "Velox"
