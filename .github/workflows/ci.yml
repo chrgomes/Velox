@@ -22,7 +22,7 @@ jobs:
       run:
         working-directory: backend
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # PostgreSQL is preinstalled on GitHub's Ubuntu runners; we start it natively (no containers).
       - name: Start PostgreSQL
         run: |
@@ -52,7 +52,7 @@ jobs:
       run:
         working-directory: frontend
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -75,7 +75,7 @@ jobs:
       # first, while the servers below listen on 127.0.0.1 only.
       E2E_BASE_URL: http://127.0.0.1:4200
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Start PostgreSQL
         run: |
           sudo systemctl start postgresql.service
