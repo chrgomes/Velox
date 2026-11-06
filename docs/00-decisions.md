@@ -21,6 +21,7 @@ New decisions are appended; superseded ones are marked, never deleted.
 | D-014 | 2026-11-05 | Phase 1 jobs: email outbox + simple worker; `procrastinate` deferred to Phase 2 | Accepted (refines D-008) |
 | D-015 | 2026-11-05 | Synchronous SQLAlchemy sessions (not async) | Accepted |
 | D-016 | 2026-11-05 | Staff must enable MFA before using the admin API | Accepted |
+| D-017 | 2026-11-06 | Brand name: Colibri (replaces working name Velox) | Accepted |
 
 ---
 
@@ -115,3 +116,13 @@ Revisit only if profiling shows thread-pool saturation.
 ## D-016 Staff MFA
 Staff can sign in without MFA but every admin endpoint returns `auth.staff_mfa_required` until it is
 enabled, and staff cannot turn it off.
+
+## D-017 Brand name: Colibri
+"Colibri" (hummingbird) is nearly the same word in English, French (*colibri*) and Spanish (*colibrí*),
+suggests small, fast and precise delivery, and is more distinctive than "Velox". Written without an
+accent everywhere, including Spanish copy. All customer-facing text, emails and the logo use it.
+Internal identifiers keep the old name to avoid risky churn before anything is deployed: the
+`VELOX_` settings prefix, the `velox` database and service user, systemd units (`velox-api`,
+`velox-worker`), the `velox_refresh` cookie, `velox.locale` browser storage and the GitHub repository.
+**Before buying the domain:** check `.com` and `.ca` availability and search CIPO and USPTO
+(classes 35, 39, 42); final clearance by the lawyer.

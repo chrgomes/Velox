@@ -16,7 +16,7 @@ from app.modules.accounts.models import Account, AccountMember, Address
 from app.modules.identity.models import Role, User
 from app.modules.identity.rbac import seed_rbac
 
-DEMO_PASSWORD = "Velox-demo-2026!"
+DEMO_PASSWORD = "Colibri-demo-2026!"
 
 
 def _demo(db) -> None:  # type: ignore[no-untyped-def]

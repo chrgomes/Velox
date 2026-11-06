@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_prefix="VELOX_", extra="ignore", env_ignore_empty=True)
 
     app_mode: Literal["development", "sandbox", "production"] = "development"
-    app_name: str = "Velox"
+    app_name: str = "Colibri"
     public_web_url: str = "http://localhost:4200"
 
     database_url: str = "postgresql+psycopg://velox:velox@localhost:5432/velox"
@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     # Integrations
     shipping_provider: Literal["mock", "easypost"] = "mock"
     email_provider: Literal["console", "postmark"] = "console"
-    email_from: str = "Velox <no-reply@localhost>"
+    email_from: str = "Colibri <no-reply@localhost>"
     postmark_server_token: str = ""
 
     @model_validator(mode="after")

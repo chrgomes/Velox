@@ -2,7 +2,7 @@ import { TKey } from './en';
 
 /* Français (Canada). Machine-assisted draft: must be reviewed by a fluent speaker before launch. */
 export const fr: Record<TKey, string> = {
-  'meta.title': 'Velox — Comparez les tarifs d’expédition au Canada et aux États-Unis',
+  'meta.title': 'Colibri — Comparez les tarifs d’expédition au Canada et aux États-Unis',
   'a11y.skip': 'Passer au contenu principal',
   'lang.label': 'Langue',
 
@@ -31,7 +31,7 @@ export const fr: Record<TKey, string> = {
   'footer.company': 'Entreprise',
   'footer.shipping': 'Expédition',
   'footer.legal': 'Mentions légales',
-  'footer.copyright': '© {year} Velox. Tous droits réservés.',
+  'footer.copyright': '© {year} Colibri. Tous droits réservés.',
 
   'country.CA': 'Canada',
   'country.US': 'États-Unis',
@@ -131,15 +131,15 @@ export const fr: Record<TKey, string> = {
     'Créez un compte dès aujourd’hui et parlez-nous de vos volumes. Nous priorisons les fonctionnalités selon nos premiers clients.',
   'business.contact_cta': 'Nous joindre',
 
-  'about.title': 'À propos de Velox',
+  'about.title': 'À propos de Colibri',
   'about.lead':
     'Une plateforme d’expédition canadienne pour les clients des deux côtés de la frontière.',
   'about.p1':
-    'Velox réunit les tarifs des grands transporteurs pour vous permettre de choisir le bon service pour chaque colis, sans jongler entre plusieurs comptes et sites.',
+    'Colibri réunit les tarifs des grands transporteurs pour vous permettre de choisir le bon service pour chaque colis, sans jongler entre plusieurs comptes et sites.',
   'about.p2':
-    'Nous sommes établis en Ontario et avons conçu Velox pour les particuliers et les petites entreprises qui expédient au Canada, aux États-Unis et entre les deux.',
+    'Nous sommes établis en Ontario et avons conçu Colibri pour les particuliers et les petites entreprises qui expédient au Canada, aux États-Unis et entre les deux.',
   'about.p3':
-    'Velox fonctionne en français, en anglais et en espagnol, et chaque page est conçue pour être accessible.',
+    'Colibri fonctionne en français, en anglais et en espagnol, et chaque page est conçue pour être accessible.',
 
   'faq.title': 'Foire aux questions',
   'faq.lead': 'Réponses rapides sur les tarifs, les étiquettes et les comptes.',
@@ -193,7 +193,7 @@ export const fr: Record<TKey, string> = {
   'login.title': 'Connexion',
   'login.submit': 'Se connecter',
   'login.forgot': 'Mot de passe oublié?',
-  'login.no_account': 'Nouveau sur Velox?',
+  'login.no_account': 'Nouveau sur Colibri?',
   'login.expired': 'Votre session a pris fin. Veuillez vous reconnecter.',
   'mfa.challenge_title': 'Authentification à deux facteurs',
   'mfa.challenge_body':
@@ -278,7 +278,7 @@ export const fr: Record<TKey, string> = {
   'dash.hello': 'Bonjour, {name}',
   'dash.lead': 'Voici un aperçu de votre compte.',
   'dash.welcome':
-    'Bienvenue chez Velox! Quelques étapes rapides suffisent pour préparer votre compte.',
+    'Bienvenue chez Colibri! Quelques étapes rapides suffisent pour préparer votre compte.',
   'dash.verify_banner':
     'Veuillez confirmer votre adresse courriel. Nous avons envoyé un lien à {email}.',
   'dash.verify_resend': 'Renvoyer le courriel',
@@ -489,7 +489,7 @@ export const fr: Record<TKey, string> = {
   'errors.settings.unknown_key': 'Paramètre inconnu.',
   'home.trust':
     'Sans abonnement · Prix en CAD ou en USD, taxes affichées avant le paiement · English, Français, Español',
-  'home.why_eyebrow': 'Pourquoi Velox',
+  'home.why_eyebrow': 'Pourquoi Colibri',
   'home.why_title': 'Tout, de la soumission jusqu’à la porte.',
   'home.why_body':
     'Conçu pour les particuliers et les petites entreprises qui expédient chaque semaine, des deux côtés de la frontière.',

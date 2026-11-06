@@ -175,4 +175,4 @@ normalized (`weight_oz`, `dims_in`) for provider calls.
 | Accountant review: sales tax on postage resale, retention | Before launch |
 | Lawyer review: Terms, Privacy Policy (PIPEDA, Law 25, CCPA), carrier liability/claims wording | Before launch |
 | Fluent reviewers for French and Spanish | Before launch |
-| Final brand name (working name: Velox) | Design work in Phase 1 |
+| Brand name: **Colibri** chosen; trademark (CIPO, USPTO) and domain checks still needed | Before buying the domain |

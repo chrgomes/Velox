@@ -116,6 +116,7 @@ body {
   color: $vx-subtle;
 }
 .section-title {
+  text-wrap: balance;
   font-family: $vx-font-display;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -247,6 +248,7 @@ body {
     background: #4ade80;
   }
   h1 {
+    text-wrap: balance;
     font-size: clamp(2.25rem, 4.5vw + 0.5rem, 4rem);
     line-height: 1.04;
     letter-spacing: -0.035em;
