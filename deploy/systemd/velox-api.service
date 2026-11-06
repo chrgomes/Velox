@@ -1,5 +1,5 @@
 [Unit]
-Description=Velox API (gunicorn + uvicorn workers)
+Description=Colibri API (gunicorn + uvicorn workers)
 After=network-online.target
 Wants=network-online.target
 

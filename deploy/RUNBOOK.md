@@ -1,4 +1,4 @@
-# Velox Runbook
+# Colibri Runbook
 
 Native deployment: Ubuntu 24.04 LTS, nginx, systemd, Python venv. No Docker (see docs/00-decisions.md D-006).
 

@@ -1,6 +1,6 @@
 /* English source strings. fr.ts and es.ts must define exactly the same keys (enforced by TypeScript). */
 export const en = {
-  'meta.title': 'Velox — Compare shipping rates across Canada and the US',
+  'meta.title': 'Colibri — Compare shipping rates across Canada and the US',
   'a11y.skip': 'Skip to main content',
   'lang.label': 'Language',
 
@@ -29,7 +29,7 @@ export const en = {
   'footer.company': 'Company',
   'footer.shipping': 'Shipping',
   'footer.legal': 'Legal',
-  'footer.copyright': '© {year} Velox. All rights reserved.',
+  'footer.copyright': '© {year} Colibri. All rights reserved.',
 
   'country.CA': 'Canada',
   'country.US': 'United States',
@@ -126,14 +126,14 @@ export const en = {
     'Create an account today and contact us about your volumes. We are prioritizing features based on early customers.',
   'business.contact_cta': 'Contact us',
 
-  'about.title': 'About Velox',
+  'about.title': 'About Colibri',
   'about.lead': 'A Canadian shipping platform for customers on both sides of the border.',
   'about.p1':
-    'Velox brings rates from major carriers together so you can choose the right service for every parcel, without juggling accounts and websites.',
+    'Colibri brings rates from major carriers together so you can choose the right service for every parcel, without juggling accounts and websites.',
   'about.p2':
-    'We are based in Ontario and built Velox for individuals and small businesses shipping within Canada, within the United States, and between the two.',
+    'We are based in Ontario and built Colibri for individuals and small businesses shipping within Canada, within the United States, and between the two.',
   'about.p3':
-    'Velox works in English, French and Spanish, and we design every page to be accessible.',
+    'Colibri works in English, French and Spanish, and we design every page to be accessible.',
 
   'faq.title': 'Frequently asked questions',
   'faq.lead': 'Quick answers about rates, labels and accounts.',
@@ -185,7 +185,7 @@ export const en = {
   'login.title': 'Log in',
   'login.submit': 'Log in',
   'login.forgot': 'Forgot your password?',
-  'login.no_account': 'New to Velox?',
+  'login.no_account': 'New to Colibri?',
   'login.expired': 'Your session ended. Please log in again.',
   'mfa.challenge_title': 'Two-factor authentication',
   'mfa.challenge_body':
@@ -268,7 +268,7 @@ export const en = {
 
   'dash.hello': 'Hello, {name}',
   'dash.lead': 'Here is an overview of your account.',
-  'dash.welcome': 'Welcome to Velox! A few quick steps will get your account ready.',
+  'dash.welcome': 'Welcome to Colibri! A few quick steps will get your account ready.',
   'dash.verify_banner': 'Please confirm your email address. We sent a link to {email}.',
   'dash.verify_resend': 'Resend email',
   'dash.verify_sent': 'Email sent',
@@ -471,7 +471,7 @@ export const en = {
   'errors.settings.unknown_key': 'Unknown setting.',
   'home.trust':
     'No subscription · Prices in CAD or USD, with tax shown before you pay · English, Français, Español',
-  'home.why_eyebrow': 'Why Velox',
+  'home.why_eyebrow': 'Why Colibri',
   'home.why_title': 'Everything between the quote and the doorstep.',
   'home.why_body':
     'Built for people and small businesses who ship every week, on both sides of the border.',

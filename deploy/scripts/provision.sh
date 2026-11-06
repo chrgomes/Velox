@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# First-time setup of an Ubuntu 24.04 LTS droplet for the Velox API. Run as root.
+# First-time setup of an Ubuntu 24.04 LTS droplet for the Colibri API. Run as root.
 # Usage: sudo bash provision.sh api.example.com
 set -euo pipefail
 DOMAIN="${1:?usage: provision.sh <api-domain>}"

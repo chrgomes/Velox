@@ -1,4 +1,4 @@
-# Velox
+# Colibri
 
 Multi-carrier shipping platform for Canada and the US: compare rates, buy labels, track parcels.
 English, French and Spanish.
@@ -35,7 +35,7 @@ npm install
 npm start
 ```
 
-Demo logins (development only), password `Velox-demo-2026!`:
+Demo logins (development only), password `Colibri-demo-2026!`:
 - `demo@example.com` — customer
 - `admin@example.com` — super administrator (you will be asked to set up two-factor authentication)
 

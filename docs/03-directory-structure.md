@@ -1,7 +1,7 @@
 # Project Directory Structure
 
 ```
-Velox/
+Velox/                            repository (brand name is Colibri; see D-017)
 ├── README.md                     setup overview, links to docs
 ├── PROGRESS.md                   living progress document
 ├── .github/
