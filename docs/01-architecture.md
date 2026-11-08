@@ -166,7 +166,7 @@ Stripe does not return its processing fee on refunds; this cost is tracked in re
 | Secrets | Server env files (`chmod 600`, owned by service user); provider keys never in DB plaintext. |
 | Errors | One error envelope `{error:{code,message,details,request_id}}`; `code` is stable and translated client-side. |
 | Logging | Structured JSON logs (stdlib logging + `python-json-logger`) with `request_id`; PII redaction filter. |
-| Monitoring | Sentry (errors, frontend + backend), DO uptime checks on `/health` and `/ready`. |
+| Monitoring | Better Stack (D-018): uptime monitors on `/health` and `/ready` plus the website, alerting and a status page; error tracking for backend and frontend through the standard Sentry SDKs pointed at Better Stack; JSON logs shipped from the server. |
 | Rate limiting | nginx `limit_req` per IP (coarse) + DB-backed per-account counters for login, quote and tracking endpoints. |
 | Idempotency | `Idempotency-Key` header required on checkout creation/completion; stored with request hash and response. |
 | Time | All timestamps `TIMESTAMPTZ` in UTC; displayed in the user's timezone. |

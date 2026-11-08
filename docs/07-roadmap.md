@@ -66,4 +66,4 @@ label cannot be sold without them. MVP launch = end of Phase 2 + launch hardenin
 ## 5. Launch hardening (2L)
 Security review (OWASP ASVS L2 checklist), dependency audit, penetration-style test of auth and
 checkout, legal pages reviewed, FR/ES translations reviewed, production EasyPost + Stripe keys,
-Sentry + uptime alerts, backup restore drill, load test (k6 or Locust) at 5× expected peak.
+Better Stack uptime and error alerts, backup restore drill, load test (k6 or Locust) at 5× expected peak.

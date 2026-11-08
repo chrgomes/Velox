@@ -22,6 +22,7 @@ New decisions are appended; superseded ones are marked, never deleted.
 | D-015 | 2026-11-05 | Synchronous SQLAlchemy sessions (not async) | Accepted |
 | D-016 | 2026-11-05 | Staff must enable MFA before using the admin API | Accepted |
 | D-017 | 2026-11-06 | Brand name: Colibri (replaces working name Velox) | Accepted |
+| D-018 | 2026-11-08 | Monitoring: Better Stack instead of Sentry | Accepted |
 
 ---
 
@@ -92,7 +93,7 @@ A checkout contains 1–N shipments with selected rates, paid with one PaymentIn
 Partial failures capture a reduced amount.
 
 ## D-012 Business entity
-No company is registered yet. Test accounts (EasyPost, Stripe Canada, Sentry) are opened personally
+No company is registered yet. Test accounts (EasyPost, Stripe Canada, Better Stack) are opened personally
 now; live accounts are activated under an Ontario or federal corporation before launch. Ontario HST is
 13%; other provinces are handled by Stripe Tax. Accountant and lawyer reviews remain launch blockers.
 
@@ -126,3 +127,12 @@ Internal identifiers keep the old name to avoid risky churn before anything is d
 `velox-worker`), the `velox_refresh` cookie, `velox.locale` browser storage and the GitHub repository.
 **Before buying the domain:** check `.com` and `.ca` availability and search CIPO and USPTO
 (classes 35, 39, 42); final clearance by the lawyer.
+
+## D-018 Monitoring: Better Stack
+One service for uptime monitoring (API `/health` and `/ready`, the website), alerting, a public
+status page, error tracking and log search, replacing the planned Sentry plus DigitalOcean uptime
+checks. Error tracking uses the standard Sentry SDKs (`sentry-sdk` for Python, `@sentry/angular`
+for the frontend) configured with Better Stack's ingestion address, so switching provider later is
+a configuration change. The existing PII redaction in the JSON log formatter stays in front of
+anything sent. Free plan to start; confirm current limits (monitors, error volume, retention) and
+the data region at sign-up, and mention the provider in the privacy policy.

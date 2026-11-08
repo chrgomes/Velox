@@ -171,7 +171,7 @@ normalized (`weight_oz`, `dims_in`) for provider calls.
 | Stripe account + Stripe Tax enabled | Phase 2 |
 | DigitalOcean account | Phase 1 deploy |
 | Postmark account + sending domain (SPF/DKIM/DMARC) | Phase 1 (email verification) |
-| Sentry account | Phase 1 |
+| Better Stack account (uptime, errors, logs) | Phase 1 deploy |
 | Accountant review: sales tax on postage resale, retention | Before launch |
 | Lawyer review: Terms, Privacy Policy (PIPEDA, Law 25, CCPA), carrier liability/claims wording | Before launch |
 | Fluent reviewers for French and Spanish | Before launch |

@@ -29,7 +29,7 @@ Decision log, architecture, technical spec, directory structure, ERD/schema, API
 | Deployment: nginx, systemd, provision/deploy scripts with health-check rollback, runbook | ✅ (untested on a real droplet) |
 
 ## Next steps
-1. Owner: open DigitalOcean, Postmark and Sentry accounts; choose the domain → deploy staging (exit checklist item).
+1. Owner: open DigitalOcean, Postmark and Better Stack accounts; choose the domain → deploy staging (exit checklist item).
 2. Lighthouse audit of the homepage on staging.
 3. Phase 2 (shipping engine + payments) once EasyPost and Stripe test keys are available.
 
@@ -44,7 +44,7 @@ See `docs/02-technical-spec.md` §10. Business decisions are recorded in `docs/0
 | Privacy policy and terms are placeholders | "Draft" banner on both pages | Before launch (lawyer) |
 | French and Spanish copy is machine-assisted | — | Fluent review before launch |
 | Contact page is email only (no form) | — | Later |
-| Sentry error reporting not wired yet | — | With staging deploy |
+| Monitoring (Better Stack uptime, errors, logs) not wired yet | — | With staging deploy |
 | Per-locale URLs + prerendering for SEO | — | Launch hardening (D-013) |
 | Encryption key rotation (MultiFernet) | — | Before launch |
 
