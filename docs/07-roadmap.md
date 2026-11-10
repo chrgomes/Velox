@@ -9,6 +9,8 @@ label cannot be sold without them. MVP launch = end of Phase 2 + launch hardenin
 | 1 | Foundation | Running app: auth, accounts, addresses, i18n, admin shell, CI, deploy to staging | Checklist §2 (code complete; staging deploy pending accounts) |
 | 2 | Shipping engine + payments | Quote → pay → label → track → void, admin pricing | Checklist §3 |
 | 2L | Launch hardening | Security review, legal pages, translations reviewed, production keys, monitoring | **MVP launch** |
+| M1 | Mobile app (after launch) | iOS and Android apps (Capacitor, shared Angular code): phone sign-in, push tracking updates, barcode scanning, Apple Pay / Google Pay | Website launched |
+| M2 | Camera parcel measuring | Measure a box with the phone camera (LiDAR iPhones first, then AR tap-the-corners) | M1 released |
 | 3 | Supplies store | Catalogue, cart, checkout reuse, inventory | |
 | 4 | Financial management | Invoices, statements, business billing, finance reports | |
 | 5 | Advanced shipping | Business accounts, CSV bulk, returns, international, API keys, integrations | |
@@ -67,3 +69,25 @@ label cannot be sold without them. MVP launch = end of Phase 2 + launch hardenin
 Security review (OWASP ASVS L2 checklist), dependency audit, penetration-style test of auth and
 checkout, legal pages reviewed, FR/ES translations reviewed, production EasyPost + Stripe keys,
 Better Stack uptime and error alerts, backup restore drill, load test (k6 or Locust) at 5× expected peak.
+
+## 6. Mobile app (after launch; D-019)
+
+The website launches first. The mobile app follows, reusing the website's Angular code through
+Capacitor so iOS and Android are published to the App Store and Google Play without a second codebase.
+
+**M1 — Mobile app**
+- Capacitor iOS and Android projects built from `frontend/`; app icons, splash screen, deep links.
+- Phone sign-in: refresh token kept in the iOS Keychain / Android Keystore instead of a browser cookie
+  (small backend addition: a token flow for native clients).
+- Push notifications for tracking milestones (APNs / FCM), respecting notification preferences.
+- Barcode scanning to look up tracking numbers; optional text recognition to fill in addresses.
+- Apple Pay and Google Pay through Stripe; printer-free drop-off codes where the carrier and EasyPost support them.
+- Needs: Apple Developer Program (~US$99/year), Google Play (one-time ~US$25), a Mac or cloud build
+  service for iOS, App Store / Play privacy disclosures.
+
+**M2 — Camera parcel measuring**
+- Native module (ARKit / ARCore) bridged into the app; not possible on the website.
+- LiDAR iPhones and iPads first (about ±1 cm), then AR tap-the-corners for other phones (about ±1–3 cm).
+- Results are rounded up and always editable; the customer stays responsible for declared sizes
+  (carrier adjustment charges) — wording added to the Terms. Weight still comes from a scale.
+- Compare building it ourselves with licensing a commercial dimensioning SDK.

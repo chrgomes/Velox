@@ -23,6 +23,7 @@ New decisions are appended; superseded ones are marked, never deleted.
 | D-016 | 2026-11-05 | Staff must enable MFA before using the admin API | Accepted |
 | D-017 | 2026-11-06 | Brand name: Colibri (replaces working name Velox) | Accepted |
 | D-018 | 2026-11-08 | Monitoring: Better Stack instead of Sentry | Accepted |
+| D-019 | 2026-11-10 | Website first; iOS/Android app after launch via Capacitor | Accepted |
 
 ---
 
@@ -136,3 +137,10 @@ for the frontend) configured with Better Stack's ingestion address, so switching
 a configuration change. The existing PII redaction in the JSON log formatter stays in front of
 anything sent. Free plan to start; confirm current limits (monitors, error volume, retention) and
 the data region at sign-up, and mention the provider in the privacy policy.
+
+## D-019 Mobile app after launch
+The website is the launch product. iOS and Android apps follow after launch (roadmap M1, M2),
+built with Capacitor from the same Angular code rather than separate native apps, so features and
+translations stay in one place. Camera parcel measuring (ARKit / ARCore) comes in the app's second
+version. Until then: keep every page mobile-friendly and keep the API client-agnostic (JSON, no
+browser-only assumptions beyond the refresh cookie, which gets a native-client alternative in M1).
