@@ -1,5 +1,5 @@
 # Direct runtime dependencies. Exact pins for reproducible installs live in requirements.lock.txt.
-fastapi==0.162.0
+fastapi==0.162.2
 uvicorn[standard]==0.54.0
 gunicorn==26.2.0
 SQLAlchemy==2.1.8
