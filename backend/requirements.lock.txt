@@ -28,7 +28,7 @@ psycopg-binary==3.3.8
 pycparser==3.12
 pydantic==2.14.2
 pydantic-settings==2.16.2
-pydantic_core==2.50.2
+pydantic_core==2.50.4
 PyJWT==2.15.1
 PyOTP==2.10.0
 python-dotenv==1.2.4
