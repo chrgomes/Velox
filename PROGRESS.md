@@ -1,9 +1,36 @@
 # Project Progress
 
-_Last updated: 2026-11-05_
+_Last updated: 2026-11-13_
 
 ## Current phase
-**Phase 1: Foundation — code complete.** Staging deployment waits on the hosting accounts.
+**On hold until the new year (paused 2026-11-13).** Phase 1 (foundation) is code complete and
+redesigned; staging deployment waits on the domain.
+
+## Where we left off
+- **Open pull request #13** (ready to merge): rename to **Colibri**, Better Stack instead of Sentry
+  (D-018), mobile app planned after launch (D-019, roadmap M1/M2).
+- **Logo:** not chosen. Eleven directions are on the design canvas ("Logo directions" and
+  "Logo directions, round 2"); shortlist: F Hover, D "c" monogram, I Pin-bird. The current
+  hummingbird mark is a placeholder.
+- **Accounts:**
+
+  | Service | Status |
+  |---|---|
+  | DigitalOcean | Signed up. Do not create the server or database until the domain is ready. |
+  | Better Stack | Signed up. No monitors yet. |
+  | EasyPost | Signed up. Test key **not** stored yet (add it via the secure form or environment settings when Phase 2 starts). Ask EasyPost about reselling labels at a markup. |
+  | Postmark | In progress; needs the domain. |
+  | Stripe (Canada, test mode) | In progress. |
+  | Domain | **Blocker.** Trademark search for "Colibri" (CIPO, USPTO; classes 35, 39, 42), then buy via Cloudflare Registrar. |
+  | Work email | Needs the domain: start with Cloudflare Email Routing, then Google Workspace or Zoho to send. |
+
+## When resuming
+1. Merge PR #13 (and choose a logo, a small follow-up change).
+2. Trademark check → buy the domain → work email → Postmark DNS.
+3. Create the DigitalOcean database and server and deploy staging (`deploy/RUNBOOK.md`).
+4. Store the EasyPost and Stripe test keys, then start Phase 2 (shipments and rates first).
+5. Before launch: accountant (tax on resold postage), lawyer (Terms, Privacy, Competition Act wording,
+   Ontario online-agreement rules), fluent review of French and Spanish copy.
 
 ## Completed
 ### Phase 0 — Architecture (merged in PR #1)
@@ -29,7 +56,7 @@ Decision log, architecture, technical spec, directory structure, ERD/schema, API
 | Deployment: nginx, systemd, provision/deploy scripts with health-check rollback, runbook | ✅ (untested on a real droplet) |
 
 ## Next steps
-1. Owner: open DigitalOcean, Postmark and Sentry accounts; choose the domain → deploy staging (exit checklist item).
+1. Owner: domain (blocker), then Postmark and Stripe → deploy staging (exit checklist item).
 2. Lighthouse audit of the homepage on staging.
 3. Phase 2 (shipping engine + payments) once EasyPost and Stripe test keys are available.
 
@@ -44,7 +71,7 @@ See `docs/02-technical-spec.md` §10. Business decisions are recorded in `docs/0
 | Privacy policy and terms are placeholders | "Draft" banner on both pages | Before launch (lawyer) |
 | French and Spanish copy is machine-assisted | — | Fluent review before launch |
 | Contact page is email only (no form) | — | Later |
-| Sentry error reporting not wired yet | — | With staging deploy |
+| Monitoring (Better Stack uptime, errors, logs) not wired yet | — | With staging deploy |
 | Per-locale URLs + prerendering for SEO | — | Launch hardening (D-013) |
 | Encryption key rotation (MultiFernet) | — | Before launch |
 

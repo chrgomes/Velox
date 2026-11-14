@@ -1,4 +1,4 @@
-# Velox Runbook
+# Colibri Runbook
 
 Native deployment: Ubuntu 24.04 LTS, nginx, systemd, Python venv. No Docker (see docs/00-decisions.md D-006).
 
@@ -87,7 +87,7 @@ Only roll back the database (`alembic downgrade <rev>`) if the migration is know
 
 ## 8. Incident checklist
 
-1. Check `/api/v1/ready`, `journalctl`, Sentry, DigitalOcean database metrics.
+1. Check `/api/v1/ready`, `journalctl`, Better Stack (uptime, errors, logs), DigitalOcean database metrics.
 2. Suspected account compromise: Admin → Customers → Suspend (ends all sessions immediately).
 3. Suspected key leak: rotate the secret (section 7), then review `audit_logs` for the affected period.
 4. Write a short post-incident note in PROGRESS.md (what happened, impact, fix, follow-ups).

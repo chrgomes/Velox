@@ -1,6 +1,8 @@
 # UI/UX Design System
 
-Working brand name: **Velox** (replaceable; all brand strings and colours live in tokens and i18n files).
+Brand name: **Colibri** (hummingbird; chosen 2026-11-06, see D-017). Brand strings and colours live in tokens and i18n files.
+
+Logo: a white hummingbird on a cobalt rounded square (`frontend/src/app/shared/brand.ts`, `frontend/public/favicon.svg`), with the lowercase wordmark "colibri" in Manrope. It is a working mark; have a designer refine it before launch.
 
 > **Revised 2026-11-05** from the approved mockups (design canvas "Velox UI redesign mockups"):
 > navy hero and side menu, one cobalt accent, Manrope display type over Inter body text, a full-width
